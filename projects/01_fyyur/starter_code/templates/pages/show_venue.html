@@ -15,6 +15,14 @@
 			{% endfor %}
 		</div>
 		<p>
+			<a href="/venues/{{ venue.id }}/edit">
+				<button class="btn btn-primary btn-md", id="venue-edit-btn", data-id="{{ venue.id }}">Edit</button>
+			</a>
+		</p>
+		<p>
+			<button class="btn btn-primary btn-md", id="venue-delete-btn", data-id="{{ venue.id }}">Delete</button>
+		</p>
+		<p>
 			<i class="fas fa-globe-americas"></i> {{ venue.city }}, {{ venue.state }}
 		</p>
 		<p>
@@ -74,6 +82,22 @@
 		{% endfor %}
 	</div>
 </section>
+<script>
+	const deleteBtn = document.getElementById("venue-delete-btn");
+	deleteBtn.onclick = function(e){
+		venueId = e.target.dataset.id;
+		fetch('/venues/' + venueId, {
+			method: 'DELETE'
+		})
+		.then(function() {
+			window.location.href = '/';
+		})
+		.catch(function(e) {
+			console.log('error', e)
+		})
+	}
+	
+</script>
 
 {% endblock %}
 

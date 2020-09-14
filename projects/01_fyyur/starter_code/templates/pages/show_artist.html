@@ -15,6 +15,14 @@
 			{% endfor %}
 		</div>
 		<p>
+			<a href="/artists/{{ artist.id }}/edit">
+				<button class="btn btn-primary btn-md", id="artist-edit-btn", data-id="{{ artist.id }}">Edit</button>
+			</a>
+		</p>
+		<p>
+				<button class="btn btn-primary btn-md", id="artist-delete-btn", data-id="{{ artist.id }}">Delete</button>
+		</p>
+		<p>
 			<i class="fas fa-globe-americas"></i> {{ artist.city }}, {{ artist.state }}
 		</p>
 		<p>
@@ -71,6 +79,21 @@
 		{% endfor %}
 	</div>
 </section>
+<script>
+	const deleteBtn = document.getElementById('artist-delete-btn')
+	deleteBtn.onclick = function(e){
+		artistID = e.target.dataset.id;
+		fetch('/artists/'+ artistID, {
+			method: 'DELETE'
+		})
+		.then(function(){
+			window.location.href = '/artists'
+		})
+		.catch(function(e){
+			console.log('error', e)
+		})
+	}
+</script>
 
 {% endblock %}
 
